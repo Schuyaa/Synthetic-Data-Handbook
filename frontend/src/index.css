@@ -1,0 +1,15 @@
+/* =========================================================
+   Глобальные стили — barrel-импорт.
+   Все реальные правила живут в src/styles/*.css.
+   ========================================================= */
+
+@import "./styles/base.css";
+@import "./styles/header.css";
+@import "./styles/home.css";
+@import "./styles/learn.css";
+@import "./styles/user.css";
+@import "./styles/admin.css";
+@import "./styles/layout.css";
+@import "./styles/code-highlight.css";
+@import "./styles/progress.css";
+@import "./styles/dark.css";

@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Syntax highlighting для блоков кода (highlight.js классы).
+
+   Палитра — GitHub-like, адаптированная под темы проекта:
+   - Light: мягкий #f6f8fa фон, тёмный текст, классические GitHub-цвета
+   - Dark:  фон чуть светлее body-background для визуального выделения блока
+
+   Где менять:
+   - Базовый фон/текст блока            → .hljs { ... } (light) + [data-theme="dark"] .hljs { ... }
+   - Цвета синтаксиса (keyword/string/...) → парные правила в light/dark блоках ниже
+   - Размер шрифта блока кода            → .lesson-body pre в styles/learn.css
+   - Размер inline-кода                  → .lesson-body code в styles/learn.css
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ──────────── LIGHT theme (default) ──────────── */
+
+.hljs {
+  color: #24292f;
+}
+
+.hljs-comment,
+.hljs-quote                       { color: #6e7781; font-style: italic; }
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-subst                       { color: #cf222e; }
+
+.hljs-string,
+.hljs-doctag,
+.hljs-template-tag,
+.hljs-template-variable           { color: #0a3069; }
+
+.hljs-number,
+.hljs-regexp                      { color: #0550ae; }
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_,
+.hljs-function .hljs-title        { color: #8250df; font-weight: 600; }
+
+.hljs-built_in,
+.hljs-symbol                      { color: #953800; }
+
+.hljs-variable,
+.hljs-params                      { color: #24292f; }
+
+.hljs-attribute,
+.hljs-attr,
+.hljs-property                    { color: #0550ae; }
+
+.hljs-tag,
+.hljs-name,
+.hljs-selector-class,
+.hljs-selector-id                 { color: #116329; }
+
+.hljs-operator,
+.hljs-punctuation                 { color: #24292f; }
+
+.hljs-meta,
+.hljs-meta .hljs-string           { color: #8250df; }
+
+.hljs-emphasis                    { font-style: italic; }
+.hljs-strong                      { font-weight: 700; }
+.hljs-addition                    { color: #116329; background: #dafbe1; }
+.hljs-deletion                    { color: #82071e; background: #ffebe9; }
+
+/* ──────────── DARK theme ──────────── */
+
+[data-theme="dark"] .hljs {
+  color: #c9d1d9;
+  /* background намеренно НЕ задан — фон блока живёт на [data-theme="dark"] .lesson-body pre в dark.css. */
+}
+
+[data-theme="dark"] .hljs-comment,
+[data-theme="dark"] .hljs-quote                { color: #8b949e; }
+
+[data-theme="dark"] .hljs-keyword,
+[data-theme="dark"] .hljs-selector-tag,
+[data-theme="dark"] .hljs-literal,
+[data-theme="dark"] .hljs-subst                { color: #ff7b72; }
+
+[data-theme="dark"] .hljs-string,
+[data-theme="dark"] .hljs-doctag,
+[data-theme="dark"] .hljs-template-tag,
+[data-theme="dark"] .hljs-template-variable    { color: #a5d6ff; }
+
+[data-theme="dark"] .hljs-number,
+[data-theme="dark"] .hljs-regexp               { color: #79c0ff; }
+
+[data-theme="dark"] .hljs-title,
+[data-theme="dark"] .hljs-title.class_,
+[data-theme="dark"] .hljs-title.function_,
+[data-theme="dark"] .hljs-function .hljs-title { color: #d2a8ff; font-weight: 600; }
+
+[data-theme="dark"] .hljs-built_in,
+[data-theme="dark"] .hljs-symbol               { color: #ffa657; }
+
+[data-theme="dark"] .hljs-variable,
+[data-theme="dark"] .hljs-params               { color: #c9d1d9; }
+
+[data-theme="dark"] .hljs-attribute,
+[data-theme="dark"] .hljs-attr,
+[data-theme="dark"] .hljs-property             { color: #79c0ff; }
+
+[data-theme="dark"] .hljs-tag,
+[data-theme="dark"] .hljs-name,
+[data-theme="dark"] .hljs-selector-class,
+[data-theme="dark"] .hljs-selector-id          { color: #7ee787; }
+
+[data-theme="dark"] .hljs-operator,
+[data-theme="dark"] .hljs-punctuation          { color: #c9d1d9; }
+
+[data-theme="dark"] .hljs-meta,
+[data-theme="dark"] .hljs-meta .hljs-string    { color: #d2a8ff; }
+
+[data-theme="dark"] .hljs-addition             { color: #aff5b4; background: rgba(46, 160, 67, 0.15); }
+[data-theme="dark"] .hljs-deletion             { color: #ffdcd7; background: rgba(248, 81, 73, 0.15); }

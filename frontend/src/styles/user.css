@@ -1,0 +1,215 @@
+/* =========================================================
+   USER PAGE
+   ========================================================= */
+
+.user-page {
+  width: 70vw;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 0 60px;
+}
+
+.user-card {
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--foregroundAccent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-info h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.user-info p {
+  margin: 0;
+  color: var(--foregroundAlt);
+  font-size: 13px;
+}
+
+.user-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.user-stat-block {
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  padding: 14px;
+}
+
+.user-stat-block h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--foregroundAlt);
+}
+
+.user-stat-block p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* Progress mode tabs */
+.user-progress-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--borderPrimary);
+}
+
+.user-progress-tab {
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.user-progress-tab:hover {
+  color: var(--foregroundDefault);
+}
+
+.user-progress-tab.active {
+  color: var(--foregroundAccent);
+  border-bottom-color: var(--foregroundAccent);
+}
+
+.user-progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background: var(--borderPrimary);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.user-progress-bar-fill {
+  height: 100%;
+  background: var(--foregroundAccent);
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+
+.user-status-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.user-status-card {
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.user-status-card:hover {
+  background: var(--backgroundAlt);
+}
+
+.user-status-card.active {
+  border-color: var(--foregroundAccent);
+  background: var(--brand-subtle);
+}
+
+.user-status-card .count {
+  font-size: 22px;
+  font-weight: 700;
+  display: block;
+}
+
+.user-status-card .label {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+}
+
+.user-status-card.done .count { color: var(--green-brand); }
+.user-status-card.progress .count { color: var(--amber-brand); }
+.user-status-card.not-started .count { color: var(--grey-30); }
+
+@media (max-width: 900px) {
+  .user-page { width: 92%; }
+  .user-stats-grid { grid-template-columns: 1fr; }
+  .user-status-cards { grid-template-columns: 1fr; }
+  .admin-grid { grid-template-columns: 1fr !important; }
+}
+
+
+/* =========================================================
+   USER PAGE — progress list
+   ========================================================= */
+
+.progress-list-item {
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.progress-list-item:hover {
+  background: var(--grey-11);
+}
+
+.progress-list-chapter {
+  padding: 6px 12px 6px 24px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--foregroundDefault);
+  background: var(--backgroundBase);
+  border-bottom: 1px solid var(--borderPrimary);
+}
+
+.progress-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.progress-icon.done { color: var(--green-brand); }
+.progress-icon.in_progress { color: var(--amber-brand); }
+
+.user-progress-list {
+  margin-top: 14px;
+  background: var(--backgroundBase);
+  border-radius: var(--radius-10);
+  border: 1px solid var(--borderPrimary);
+  padding: 8px 0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+

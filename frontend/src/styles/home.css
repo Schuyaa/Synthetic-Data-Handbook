@@ -1,0 +1,411 @@
+/* =========================================================
+   HOME — Learn.JS-like structure
+   ========================================================= */
+
+/* Hero — code-styled block */
+/* Hero — full viewport width with canvas background */
+.lj-hero {
+  position: relative;
+  padding: 14px 0 10px;
+}
+
+.hero-canvas-content {
+  position: relative;
+  z-index: 160;
+  padding: 20px 0;
+}
+
+.hero-code-comment {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  color: var(--grey-16);
+  margin: 0 0 10px;
+  letter-spacing: 0.02em;
+}
+
+.lj-h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--grey-120);
+}
+
+.lj-lead {
+  margin: 0 0 20px;
+  color: var(--foregroundAlt);
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* TOC */
+.lj-toc {
+  background: var(--backgroundBase);
+  padding: 36px 0 80px;
+}
+
+.lj-toc-head {
+  margin-bottom: 16px;
+}
+
+.lj-h2 {
+  margin: 0 0 6px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--grey-30);
+}
+
+.lj-h2::before {
+  content: "// ";
+  color: var(--grey-16);
+}
+
+.lj-muted {
+  color: var(--foregroundAlt);
+  font-size: 13px;
+}
+
+/* Tabs sentinel — invisible marker to detect sticky state */
+.lj-tabs-sentinel {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+}
+
+/* Tabs wrapper — holds arrows + scrollable strip */
+.lj-tabs-wrap {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 150;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-8);
+  background: var(--backgroundBase);
+  margin: 16px 0 24px;
+  overflow: hidden;
+  transition: border-radius 0.2s, border-color 0.2s;
+}
+
+/* Stuck — remove top corners + top border so it merges with header */
+.lj-tabs-wrap.is-stuck {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-color: transparent;
+}
+
+/* Arrow buttons — hidden when not needed */
+.lj-tabs-arrow {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  border: none;
+  background: var(--backgroundBase);
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  transition: background 0.15s, color 0.15s;
+  z-index: 2;
+}
+.lj-tabs-arrow:hover {
+  background: var(--backgroundAlt);
+  color: var(--foregroundDefault);
+}
+.lj-tabs-arrow--left {
+  border-right: 1px solid var(--borderPrimary);
+}
+.lj-tabs-arrow--right {
+  border-left: 1px solid var(--borderPrimary);
+}
+
+/* Show arrows when scrollable */
+.lj-tabs-wrap.has-overflow .lj-tabs-arrow {
+  display: flex;
+}
+
+/* Scrollable tabs strip — always single row */
+.lj-tabs {
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  flex: 1;
+  min-width: 0;
+}
+
+.lj-tab {
+  display: grid;
+  gap: 3px;
+  padding: 14px 18px;
+  flex: 0 0 200px;
+  border-right: 1px solid var(--borderPrimary);
+  text-decoration: none;
+  color: var(--foregroundDefault);
+  background: transparent;
+  transition: background 0.15s;
+  overflow: hidden;
+}
+
+.lj-tab:last-child {
+  border-right: none;
+}
+
+.lj-tab:hover {
+  background: var(--backgroundAlt);
+  text-decoration: none;
+}
+
+.lj-tab.is-active {
+  background: var(--brand-subtle);
+  box-shadow: inset 0 -3px 0 var(--foregroundAccent);
+}
+
+.lj-tab-kicker {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-warm);
+  letter-spacing: 0.02em;
+}
+
+.lj-tab-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foregroundDefault);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Parts sections */
+.lj-parts {
+  display: grid;
+  gap: 40px;
+}
+
+.lj-part {
+  scroll-margin-top: calc(var(--header-h) + 80px);
+}
+
+.lj-part-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  color: var(--grey-120);
+}
+
+.lj-part-desc {
+  margin: 0 0 12px;
+  color: var(--foregroundAlt);
+  max-width: 640px;
+  line-height: 1.55;
+}
+
+/* Chapter links */
+.lj-chapters-grid {
+  display: grid;
+  gap: 4px;
+}
+
+/* На узких экранах сетка глав всегда одноколоночная — даже если inline-style
+   из JS просит 2-3 колонки (он не знает viewport'а). !important нужен потому
+   что inline-style имеет более высокий приоритет. */
+@media (max-width: 640px) {
+  .lj-chapters-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: row !important;
+  }
+}
+
+.lj-chapter-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-8);
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: var(--foregroundLink);
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  /* Без min-width: 0 grid item не сжимается ниже intrinsic size,
+     длинный заголовок главы выталкивает grid за границу контейнера. */
+  min-width: 0;
+  overflow: hidden;
+}
+
+.lj-chapter-card:hover {
+  color: var(--foregroundAccent);
+  text-decoration: none;
+  background: var(--brand-subtle);
+  border-color: var(--brand-light);
+}
+
+/* Wrapper для title + summary внутри карточки.
+   flex: 1 чтобы занимать всё доступное место, min-width: 0 чтобы text wrap'ался. */
+.lj-chapter-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.lj-chapter-card-title {
+  font-weight: 500;
+  font-size: 14px;
+  /* Длинные слова без пробелов (например, технические термины)
+     должны уметь переноситься, иначе они растягивают карточку. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Тип задания над заголовком карточки (Практическое задание /
+   Лабораторная работа). Цвет задаётся inline через labTypeColor. */
+.lj-chapter-card-kicker {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 2px;
+}
+
+.lj-chapter-card-summary {
+  font-size: 13px;
+  color: var(--foregroundAlt);
+  margin-top: 1px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.lj-chapter-card:hover .lj-chapter-card-summary {
+  color: var(--foregroundAccentHover);
+}
+
+.lj-chapter-card-arrow {
+  color: var(--grey-16);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.lj-chapter-card:hover .lj-chapter-card-arrow {
+  color: var(--foregroundAccent);
+}
+
+.lj-chapter-card-check {
+  color: var(--green-brand);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Done chapter */
+.lj-chapter-card.is-done {
+  color: var(--green-brand);
+}
+
+/* Standalone-лаба как карточка темы — emerald-акцент */
+.lj-chapter-card.is-lab {
+  border-color: rgba(16, 185, 129, 0.25);
+}
+.lj-chapter-card.is-lab:hover {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.06);
+  color: #047857;
+}
+[data-theme="dark"] .lj-chapter-card.is-lab:hover { color: #34d399; }
+
+/* Значок-колба перед названием. И на is-lab, и на главах с
+   привязанными лабами (badge «глава содержит практику»). */
+.lj-chapter-card-flask {
+  display: inline-flex;
+  vertical-align: -2px;
+  margin-right: 6px;
+  color: #10B981;
+}
+
+/* Subtopic header */
+.lj-subtopic-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--foregroundAlt);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--borderPrimary);
+  margin-bottom: 8px;
+}
+
+.lj-subtopic-header::before {
+  content: "├─ ";
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  color: var(--grey-16);
+  font-weight: 400;
+}
+
+/* CTA blocks */
+.lj-cta-block {
+  border-radius: var(--radius-12);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+
+/* Warm CTA variant for registration prompt */
+.lj-cta-block--warm {
+  background: var(--accent-warm-subtle);
+  border: 1px solid var(--accent-warm-light);
+}
+
+.lj-cta-block--warm .btn-primary {
+  background: var(--accent-warm);
+}
+
+.lj-cta-block--warm .btn-primary:hover {
+  background: var(--accent-warm-hover);
+  box-shadow: 0 2px 10px rgba(196, 87, 42, 0.25);
+}
+
+/* Theme title + inline progress */
+.lj-part-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.lj-part-head .lj-part-title {
+  margin: 0;
+}
+
+.lj-theme-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.lj-theme-progress-label {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+  white-space: nowrap;
+}
+
+.lj-theme-progress-track {
+  width: 80px;
+  height: 8px;
+  background: var(--borderPrimary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lj-theme-progress-fill {
+  height: 100%;
+  background: var(--foregroundAccent);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+

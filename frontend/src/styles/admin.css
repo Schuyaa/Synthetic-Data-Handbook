@@ -1,0 +1,690 @@
+/* =========================================================
+   ADMIN (basic)
+   ========================================================= */
+
+.admin-container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 0 40px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-message {
+  border: 1px solid var(--brand-light);
+  background: var(--brand-subtle);
+  border-radius: var(--radius-10);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: var(--brand-50);
+  font-size: 13px;
+}
+
+.admin-card {
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-10);
+  padding: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.admin-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-form {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  border: 1px solid var(--borderPrimary);
+  padding: 7px 10px;
+  border-radius: var(--radius-10);
+  font-size: 13px;
+  background: var(--backgroundBase);
+}
+
+.admin-form textarea {
+  resize: vertical;
+}
+
+.admin-user-actions select {
+  border: 1px solid var(--borderPrimary);
+  padding: 7px 10px;
+  border-radius: var(--radius-10);
+  font-size: 13px;
+}
+
+.admin-user-actions select:focus {
+  outline: none;
+  border-color: var(--foregroundAccent);
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--foregroundAccent);
+}
+
+.admin-list {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+
+.admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-10);
+  padding: 10px;
+  background: var(--backgroundAlt);
+}
+
+.admin-user-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Markdown editor tabs */
+.md-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--borderPrimary);
+}
+.md-tab {
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.md-tab:hover {
+  color: var(--foregroundDefault);
+}
+.md-tab.is-active {
+  color: var(--foregroundAccent);
+  border-bottom-color: var(--foregroundAccent);
+}
+[data-theme="dark"] .md-tab.is-active {
+  color: #0070F3;
+  border-bottom-color: #0070F3;
+}
+
+/* ═══ Admin tree (structure panel, VS Code style) ═══ */
+.admin-tree-node {
+  position: relative;
+}
+
+.admin-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  min-height: 24px;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+  min-width: 0;
+}
+.admin-tree-row:hover {
+  background: var(--backgroundAlt);
+}
+.admin-tree-row.is-active {
+  background: var(--brand-subtle, #f0f9f7);
+  color: var(--foregroundAccent);
+}
+.admin-tree-row.is-active .admin-tree-title {
+  color: var(--foregroundAccent);
+  font-weight: 600;
+}
+.admin-tree-row.is-draft .admin-tree-title {
+  color: var(--foregroundAlt);
+}
+.admin-tree-row.is-question .admin-tree-title {
+  font-style: italic;
+}
+
+.admin-tree-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  padding: 0;
+}
+.admin-tree-toggle:hover {
+  color: var(--foregroundDefault);
+}
+.admin-tree-toggle-spacer {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.admin-tree-kind-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.admin-tree-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--foregroundDefault);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.35;
+}
+
+.admin-tree-slug-inline {
+  font-family: "Geist Mono", "JetBrains Mono", monospace;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.admin-tree-draft-mark {
+  flex-shrink: 0;
+  font-size: 10px;
+  line-height: 1;
+  color: #D97706;
+  margin-left: 2px;
+}
+
+/* Heading rows (course sections, "No group") — visually dampened */
+.admin-tree-row--heading .admin-tree-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--foregroundAlt);
+}
+.admin-tree-row--heading:hover .admin-tree-title {
+  color: var(--foregroundDefault);
+}
+
+/* Right-side count pill (courses, groups) */
+.admin-tree-count {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+  background: var(--backgroundAlt);
+  border: 1px solid var(--borderPrimary);
+  padding: 1px 6px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+
+/* Right-side role chip (users) */
+.admin-tree-role-chip {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+  line-height: 1.5;
+}
+.admin-tree-role-chip--student {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+}
+.admin-tree-role-chip--teacher {
+  background: rgba(217, 119, 6, 0.12);
+  color: #D97706;
+}
+.admin-tree-role-chip--admin {
+  background: rgba(220, 38, 38, 0.12);
+  color: #DC2626;
+}
+
+.admin-tree-row--with-actions .admin-tree-actions {
+  display: none;
+  gap: 2px;
+  margin-left: 4px;
+}
+.admin-tree-row--with-actions:hover .admin-tree-actions,
+.admin-tree-row--with-actions.is-active .admin-tree-actions {
+  display: flex;
+  animation: ap-actions-fade-in 0.12s ease-out;
+}
+@keyframes ap-actions-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.admin-tree-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--foregroundAlt);
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.admin-tree-action-btn:hover {
+  background: var(--borderPrimary);
+  color: var(--foregroundDefault);
+}
+.admin-tree-action-btn--danger:hover {
+  background: rgba(220, 38, 38, 0.12);
+  color: #DC2626;
+}
+
+.admin-tree-children {
+  position: relative;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Dark theme */
+[data-theme="dark"] .admin-tree-row:hover {
+  background: #1A1A1A;
+}
+[data-theme="dark"] .admin-tree-row.is-active {
+  background: rgba(0, 112, 243, 0.12);
+  color: #60A5FA;
+}
+[data-theme="dark"] .admin-tree-row.is-active .admin-tree-title {
+  color: #60A5FA;
+}
+[data-theme="dark"] .admin-tree-kind-dot {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+[data-theme="dark"] .admin-tree-count {
+  background: #1A1A1A;
+  border-color: #333;
+}
+[data-theme="dark"] .admin-tree-role-chip--student {
+  background: rgba(167, 139, 250, 0.15);
+  color: #A78BFA;
+}
+[data-theme="dark"] .admin-tree-role-chip--teacher {
+  background: rgba(251, 146, 60, 0.15);
+  color: #FB923C;
+}
+[data-theme="dark"] .admin-tree-role-chip--admin {
+  background: rgba(248, 113, 113, 0.15);
+  color: #F87171;
+}
+[data-theme="dark"] .admin-tree-action-btn:hover {
+  background: #333;
+  color: #e5e5e5;
+}
+[data-theme="dark"] .admin-tree-action-btn--danger:hover {
+  background: rgba(248, 113, 113, 0.15);
+  color: #F87171;
+}
+
+.role {
+  color: var(--foregroundAlt);
+  font-size: 12px;
+}
+
+/* ═══ CourseEditor / GroupEditor — списки с кнопкой-стрелкой ═══ */
+
+.ap-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin-left: 4px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--foregroundAlt);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.ap-link-btn:hover {
+  color: var(--foregroundAccent);
+  border-color: var(--borderPrimary);
+  background: var(--backgroundAlt);
+}
+[data-theme="dark"] .ap-link-btn:hover {
+  color: #60A5FA;
+  background: #1A1A1A;
+  border-color: #333;
+}
+
+/* CourseEditor — блоки групп */
+.ap-course-groups-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ap-course-group-block {
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-8, 8px);
+  overflow: hidden;
+}
+
+.ap-course-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--backgroundAlt);
+  border-bottom: 1px solid var(--borderPrimary);
+}
+.ap-course-group-name {
+  flex: 1;
+  font-weight: 600;
+  font-size: 13px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ap-course-user-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ap-course-user-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-top: 1px solid var(--borderPrimary);
+}
+.ap-course-user-item:first-child {
+  border-top: none;
+}
+.ap-course-user-item:hover {
+  background: var(--backgroundAlt);
+}
+
+.ap-course-user-item.is-clickable {
+  cursor: pointer;
+  user-select: none;
+}
+.ap-course-user-item.is-clickable:focus-visible {
+  outline: 2px solid var(--foregroundAccent);
+  outline-offset: -2px;
+}
+.ap-course-user-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .ap-course-group-block,
+[data-theme="dark"] .ap-course-group-header,
+[data-theme="dark"] .ap-course-user-item {
+  border-color: #222;
+}
+[data-theme="dark"] .ap-course-group-header {
+  background: #111;
+}
+[data-theme="dark"] .ap-course-user-item:hover {
+  background: #1A1A1A;
+}
+
+
+/* ── TopicEditor: lab-секция (видна при type === "lab") ── */
+.lab-fieldset {
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.04);
+  display: grid;
+  gap: 10px;
+}
+.lab-fieldset legend {
+  padding: 0 6px;
+  font-size: 12px;
+}
+.lab-options-editor {
+  display: grid;
+  gap: 6px;
+}
+.lab-option-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lab-option-row input[type="text"] {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+[data-theme="dark"] .lab-fieldset {
+  background: rgba(16, 185, 129, 0.07);
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+
+/* =========================
+   QUIZ — Проверка знаний
+   ========================= */
+
+.quiz-section {
+  background: var(--backgroundBase);
+  border: 1px solid var(--brand-light);
+  border-left: 3px solid var(--brand-50);
+  border-radius: var(--radius-10);
+  padding: 28px 28px 20px;
+  margin-top: 28px;
+  box-shadow: var(--shadow-card);
+}
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.quiz-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--foregroundDefault);
+  letter-spacing: -0.01em;
+}
+
+.quiz-score {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brand-50);
+  background: var(--brand-light);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.quiz-question {
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+
+.quiz-question--correct {
+  border-color: var(--green-brand);
+  background: var(--green-light);
+}
+
+.quiz-question--wrong {
+  border-color: var(--red-brand);
+  background: var(--red-light);
+}
+
+.quiz-question-text {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 8px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-8);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s, border-color 0.15s;
+  background: var(--backgroundBase);
+}
+
+.quiz-option:hover {
+  background: var(--brand-subtle);
+  border-color: var(--brand-50);
+}
+
+.quiz-option.selected {
+  border-color: var(--brand-50);
+  background: var(--brand-light);
+}
+
+.quiz-option--correct {
+  border-color: var(--green-brand) !important;
+  background: var(--green-light) !important;
+}
+
+.quiz-option--wrong {
+  border-color: var(--red-brand) !important;
+  background: var(--red-light) !important;
+}
+
+.quiz-option input[type="radio"] {
+  accent-color: var(--brand-50);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.quiz-ref-btn {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.quiz-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Quiz history */
+.quiz-history {
+  margin-top: 16px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  overflow: hidden;
+}
+
+.quiz-history-title {
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--backgroundAlt);
+  border-bottom: 1px solid var(--borderPrimary);
+}
+
+.quiz-history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--borderPrimary);
+}
+
+.quiz-history-item:last-child {
+  border-bottom: none;
+}
+
+.quiz-history-item.passed {
+  border-left: 3px solid var(--green-brand);
+}
+
+.quiz-history-item.failed {
+  border-left: 3px solid var(--red-brand);
+}
+
+.quiz-history-num {
+  color: var(--foregroundAlt);
+  min-width: 28px;
+}
+
+.quiz-history-score {
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.quiz-history-date {
+  color: var(--foregroundAlt);
+  margin-left: auto;
+}
+

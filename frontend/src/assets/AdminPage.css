@@ -1,0 +1,563 @@
+/* ═══════════════════════════════════════════
+   Admin Panel — VS Code Layout
+   ═══════════════════════════════════════════ */
+
+/* ── 3-panel layout ── */
+.ap-layout {
+  display: flex;
+  height: calc(100vh - var(--header-h, 60px));
+  margin-top: var(--header-h, 60px);
+  overflow: hidden;
+}
+
+/* ── Activity Bar (icon sidebar, 48px) ── */
+.ap-activity-bar {
+  width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  gap: 4px;
+  background: var(--backgroundAlt);
+  border-right: 1px solid var(--borderPrimary);
+}
+
+.ap-activity-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-6, 6px);
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s, background 0.15s;
+}
+.ap-activity-btn:hover {
+  color: var(--foregroundDefault);
+  background: var(--borderPrimary);
+}
+.ap-activity-btn.is-active {
+  color: var(--foregroundAccent);
+}
+.ap-activity-btn.is-active::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--foregroundAccent);
+}
+
+/* ── Side Panel (tree area) ── */
+.ap-side-panel {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--borderPrimary);
+  background: var(--backgroundBase);
+  overflow: hidden;
+  transition: width 0.2s ease;
+}
+
+/* Свёрнутая панель (desktop): схлопывается в width 0,
+   при этом Activity Bar (48px) остаётся на месте слева. */
+.ap-side-panel.is-collapsed {
+  width: 0 !important;
+  border-right: none;
+}
+
+/* Пока идёт drag resize — отключаем transition, иначе каждое движение мыши
+   запускает 200ms easing, drag ощущается инертным и тормозящим. */
+.ap-side-panel.is-resizing {
+  transition: none;
+}
+
+/* ── Resizer handle between side panel and editor ── */
+.ap-side-resizer {
+  width: 4px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  background: transparent;
+  transition: background 0.15s;
+  position: relative;
+  z-index: 2;
+  margin-left: -2px;
+  margin-right: -2px;
+}
+.ap-side-resizer:hover,
+.ap-side-resizer.is-resizing {
+  background: var(--foregroundAccent);
+}
+[data-theme="dark"] .ap-side-resizer:hover,
+[data-theme="dark"] .ap-side-resizer.is-resizing {
+  background: #0070F3;
+}
+
+.ap-side-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--borderPrimary);
+}
+
+.ap-side-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--foregroundAlt);
+}
+
+.ap-side-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.ap-side-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 8px;
+}
+
+.ap-create-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--borderPrimary);
+  flex-shrink: 0;
+}
+.ap-create-buttons button {
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+/* ── Editor Panel ── */
+.ap-editor-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--backgroundBase);
+  min-width: 0;
+}
+
+.ap-editor-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--borderPrimary);
+  flex-shrink: 0;
+  min-height: 44px;
+}
+.ap-editor-header h2 {
+  font-size: 15px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.ap-editor-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+}
+
+.ap-editor-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px 24px;
+  border-top: 1px solid var(--borderPrimary);
+  flex-shrink: 0;
+}
+
+/* ── Message (inside editor) ── */
+.ap-message {
+  padding: 8px 14px;
+  border-radius: var(--radius-6, 6px);
+  font-size: 13px;
+  margin: 0 24px 0;
+  flex-shrink: 0;
+}
+.ap-message--success {
+  background: var(--borderAccent);
+  color: var(--foregroundAccent);
+}
+.ap-message--error {
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+}
+
+/* ── Empty state ── */
+.ap-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--foregroundAlt);
+  gap: 12px;
+  text-align: center;
+  padding: 40px;
+}
+.ap-empty-state svg { opacity: 0.25; }
+.ap-empty-state p { font-size: 14px; max-width: 280px; line-height: 1.5; }
+
+/* ── Course → Group → User tree (side panel) ── */
+.ap-course-section {
+  margin-bottom: 4px;
+}
+
+.ap-course-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-6, 6px);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--foregroundAlt);
+  transition: background 0.12s, color 0.12s;
+  user-select: none;
+}
+.ap-course-header:hover {
+  background: var(--backgroundAlt);
+  color: var(--foregroundDefault);
+}
+
+.ap-course-stats {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+  text-transform: none;
+  letter-spacing: 0;
+  background: var(--backgroundAlt);
+  border: 1px solid var(--borderPrimary);
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.ap-course-groups {
+  padding-left: 10px;
+  padding-top: 2px;
+}
+
+[data-theme="dark"] .ap-course-header:hover { background: #1A1A1A; }
+
+/* ── Users tree items (side panel) ── */
+.ap-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-6, 6px);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.12s;
+  user-select: none;
+}
+.ap-group-header:hover { background: var(--backgroundAlt); }
+.ap-group-header.is-active {
+  background: var(--brand-subtle, #f0f9f7);
+  outline: 1px solid var(--foregroundAccent);
+}
+
+.ap-group-actions {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.ap-group-header:hover .ap-group-actions { opacity: 1; }
+
+.ap-icon-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 4px;
+  color: var(--foregroundAlt);
+  display: flex;
+  align-items: center;
+  transition: color 0.12s, border-color 0.12s;
+}
+.ap-icon-btn:hover {
+  border-color: var(--borderPrimary);
+  color: var(--foregroundDefault);
+}
+.ap-icon-btn--danger:hover {
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.ap-user-tree-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px 5px 28px;
+  border-radius: var(--radius-6, 6px);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.12s;
+}
+.ap-user-tree-item:hover { background: var(--backgroundAlt); }
+.ap-user-tree-item.is-active {
+  background: var(--brand-subtle, #f0f9f7);
+  outline: 1px solid var(--foregroundAccent);
+}
+
+.ap-user-count {
+  font-size: 11px;
+  color: var(--foregroundAlt);
+  background: var(--borderPrimary);
+  border-radius: 10px;
+  padding: 0 6px;
+  min-width: 16px;
+  text-align: center;
+  line-height: 18px;
+}
+
+/* ── Kept from old: form, tree node, card basics ── */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.admin-form label { min-width: 0; }
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  border: 1px solid var(--borderPrimary);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font: inherit;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.admin-form select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── User editor fields ── */
+.ap-user-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.ap-user-form .ap-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ap-user-form .ap-field--full {
+  grid-column: 1 / -1;
+}
+.ap-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+}
+.ap-field input,
+.ap-field select {
+  border: 1px solid var(--borderPrimary);
+  padding: 7px 10px;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  background: var(--backgroundBase);
+}
+.ap-field input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Group editor: user list ── */
+.ap-group-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 12px;
+}
+.ap-group-user-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--radius-6, 6px);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.12s;
+}
+.ap-group-user-item:hover { background: var(--backgroundAlt); }
+
+/* ── Progress widget (embedded) ── */
+.ap-progress-bar-track {
+  height: 8px;
+  background: var(--borderPrimary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.ap-progress-bar-fill {
+  height: 100%;
+  background: var(--foregroundAccent);
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+.ap-progress-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.ap-progress-card {
+  text-align: center;
+  padding: 10px;
+  background: var(--backgroundBase);
+  border-radius: var(--radius-10, 10px);
+  border: 1px solid var(--borderPrimary);
+  transition: border-color 0.2s;
+  user-select: none;
+}
+.ap-progress-card.is-clickable { cursor: pointer; }
+.ap-progress-card.is-active-done { border: 2px solid #22c55e; }
+.ap-progress-card.is-active-progress { border: 2px solid #f59e0b; }
+.ap-progress-card .count { font-size: 22px; font-weight: 700; }
+.ap-progress-card .count--done { color: #22c55e; }
+.ap-progress-card .count--progress { color: #f59e0b; }
+.ap-progress-card .count--not-started { color: var(--grey-30, #8a8886); }
+.ap-progress-card .label {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* ── Dark theme ── */
+[data-theme="dark"] .ap-activity-bar {
+  background: #0A0A0A;
+  border-right-color: #222;
+}
+[data-theme="dark"] .ap-activity-btn.is-active { color: #0070F3; }
+[data-theme="dark"] .ap-activity-btn.is-active::before { background: #0070F3; }
+[data-theme="dark"] .ap-activity-btn:hover { background: #1A1A1A; }
+
+[data-theme="dark"] .ap-side-panel { background: #111; border-right-color: #222; }
+[data-theme="dark"] .ap-side-header { border-bottom-color: #222; }
+[data-theme="dark"] .ap-create-buttons { border-bottom-color: #222; }
+
+[data-theme="dark"] .ap-editor-panel { background: #0A0A0A; }
+[data-theme="dark"] .ap-editor-header { border-bottom-color: #222; }
+[data-theme="dark"] .ap-editor-footer { border-top-color: #222; }
+
+[data-theme="dark"] .ap-group-header:hover,
+[data-theme="dark"] .ap-user-tree-item:hover,
+[data-theme="dark"] .ap-group-user-item:hover { background: #1A1A1A; }
+
+[data-theme="dark"] .ap-group-header.is-active,
+[data-theme="dark"] .ap-user-tree-item.is-active {
+  background: rgba(0, 112, 243, 0.08);
+  outline-color: #0070F3;
+}
+
+[data-theme="dark"] .ap-message--success {
+  background: rgba(0, 112, 243, 0.06);
+  color: #0070F3;
+}
+
+
+
+/* ═══════════════════════════════════════════
+   Mobile drawer (< 860px)
+   ═══════════════════════════════════════════ */
+
+/* По умолчанию (desktop) overlay скрыт */
+.ap-side-overlay {
+  display: none;
+}
+
+@media (max-width: 859px) {
+  /* Side panel становится drawer'ом — фикс. ширина, выезжает слева.
+     Открытое состояние = по умолчанию (transform: translateX(0)).
+     Свёрнутое = .is-collapsed → уезжает за левый край ПОЛНОСТЬЮ
+     (calc(-100% - 48px) — учитываем смещение left:48px под Activity Bar,
+     иначе край панели частично перекрывал бы её). */
+  .ap-side-panel,
+  .ap-side-panel.is-collapsed {
+    position: fixed;
+    top: var(--header-h, 60px);
+    bottom: 0;
+    left: 48px;
+    width: min(80vw, 360px) !important;
+    z-index: 110;
+    box-shadow: var(--shadow-popover, 0 12px 36px rgba(0,0,0,0.10));
+    border-right: 1px solid var(--borderPrimary);
+    transition: transform 0.22s ease;
+    will-change: transform;
+  }
+  .ap-side-panel {
+    transform: translateX(0);
+  }
+  .ap-side-panel.is-collapsed {
+    transform: translateX(calc(-100% - 48px));
+  }
+
+  /* Resizer бесполезен на мобильном (на десктопе он рендерится только когда открыт) */
+  .ap-side-resizer {
+    display: none;
+  }
+
+  /* Затемнение поверх контента когда drawer открыт */
+  .ap-side-overlay {
+    display: block;
+    position: fixed;
+    top: var(--header-h, 60px);
+    left: 48px;                     /* не закрываем activity-bar */
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.32);
+    z-index: 105;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .ap-side-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Editor занимает всю свободную ширину рядом с Activity Bar */
+  .ap-editor-panel {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+[data-theme="dark"] .ap-side-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}

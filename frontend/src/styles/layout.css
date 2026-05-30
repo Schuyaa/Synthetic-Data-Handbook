@@ -1,0 +1,256 @@
+/* =========================================================
+   AUTH MODAL (if you use classes modal-overlay / modal-card)
+   ========================================================= */
+
+/* Overlay appear / disappear */
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modal-card-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modal-overlay-in 0.2s ease-out;
+}
+
+.modal-overlay.modal-closing {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.modal-overlay.modal-closing .modal-card {
+  transform: scale(0.95) translateY(8px);
+  opacity: 0;
+}
+
+.modal-card {
+  position: relative;
+  background: var(--backgroundBase);
+  width: 380px;
+  max-width: 92vw;
+  padding: 28px;
+  border-radius: var(--radius-12);
+  border: 1px solid var(--borderPrimary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.06);
+  animation: modal-card-in 0.25s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.modal-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-card input,
+.modal-card select {
+  border: 1px solid var(--borderPrimary);
+  padding: 8px 10px;
+  border-radius: var(--radius-6);
+  font-size: 13px;
+  width: 100%;
+}
+
+.modal-card input:focus,
+.modal-card select:focus {
+  outline: none;
+  border-color: var(--foregroundAccent);
+}
+
+/* Labels */
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+  letter-spacing: 0.02em;
+}
+
+/* Password toggle */
+.pwd-wrap {
+  position: relative;
+}
+
+.pwd-wrap input {
+  padding-right: 36px;
+}
+
+.pwd-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foregroundAlt);
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.pwd-toggle:hover {
+  opacity: 1;
+}
+
+.close-btn {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  color: var(--foregroundAccent);
+}
+
+.auth-switch {
+  display: flex;
+  border-bottom: 1px solid var(--borderPrimary);
+  margin-bottom: 18px;
+}
+
+.auth-switch button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 8px;
+  font-weight: 500;
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.auth-switch .active {
+  color: var(--foregroundAccent);
+  border-bottom: 2px solid var(--foregroundAccent);
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--red-brand);
+}
+
+.message {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--foregroundAlt);
+}
+
+.input-error {
+  border-color: var(--red-brand) !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 860px) {
+  .header-search input { width: 180px; }
+  .search-popover { width: 320px; }
+
+  .hero-canvas-content { padding: 12px 0; }
+
+  .lj-tab { flex: 0 0 170px; }
+  .lj-h1 { font-size: 28px; }
+
+  .lj-chapters-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+    grid-auto-flow: row !important;
+  }
+
+  /* Mobile: sidebar overlays content, doesn't push it */
+  .chapter-layout.sidebar-open .chapter-content {
+    margin-left: 0;
+  }
+
+  .chapter-sidebar {
+    width: 300px;
+  }
+
+  .chapter-layout.sidebar-open .chapter-sidebar {
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .chapter-layout.sidebar-open .sidebar-toggle {
+    left: 300px;
+  }
+
+  /* Overlay — show on mobile */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: var(--header-h);
+    z-index: 110;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .chapter-content-inner {
+    padding: 14px 14px 40px;
+  }
+
+  .lesson-section {
+    padding: 16px;
+  }
+
+  .chapter-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav { gap: 10px; }
+  .header-right { gap: 8px; }
+  .header-search input { width: 140px; }
+
+  .lj-h1 { font-size: 26px; }
+  .lj-lead { font-size: 14px; }
+
+  .lj-part-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .lj-theme-progress-track { width: 120px; }
+
+  .lesson-head {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .lesson-body pre {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+}
+
+

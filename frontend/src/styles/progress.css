@@ -1,0 +1,161 @@
+/* Заголовок прогресса (метка + «X / Y») */
+.pg-stats-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--foregroundAlt);
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Контейнер раскрытого дерева под карточками-фильтрами */
+.pg-tree {
+  margin-top: 14px;
+  background: var(--backgroundBase);
+  border-radius: var(--radius-10, 10px);
+  border: 1px solid var(--borderPrimary);
+  padding: 8px 0;
+  max-height: 380px;
+  overflow-y: auto;
+}
+.pg-tree--tall { max-height: 480px; }
+
+.pg-theme-title {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.pg-chapter-title {
+  padding: 6px 12px 6px 24px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--foregroundDefault);
+  border-bottom: 1px solid var(--borderPrimary);
+}
+.pg-chapter-title.is-standalone-labs {
+  font-style: italic;
+  color: #10B981;
+}
+
+/* Строка с конкретным элементом (lesson/lab/question) */
+.pg-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 40px;
+  font-size: 13px;
+}
+.pg-item.is-clickable { cursor: pointer; }
+.pg-item.is-clickable:hover { background: var(--backgroundAlt); }
+
+.pg-item-icon {
+  color: var(--pg-item-color, var(--foregroundAlt));
+  font-size: 12px;
+  flex-shrink: 0;
+  width: 14px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Название элемента (truncate если длинное) */
+.pg-item-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-type-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--pg-badge-color, #888) 13%, transparent);
+  color: var(--pg-badge-color, #888);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .pg-type-badge {
+    background: rgba(150, 150, 150, 0.15);
+  }
+}
+
+/* «Ничего нет» в раскрытом фильтре */
+.pg-empty {
+  margin-top: 14px;
+  padding: 20px;
+  text-align: center;
+  color: var(--foregroundAlt);
+  font-size: 13px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   Аватар + мета юзера на UserPage и UserProgressPage.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Большой круглый аватар (UserProgressPage admin-view) */
+.pg-user-avatar-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--grey-11);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--foregroundAlt);
+  flex-shrink: 0;
+}
+
+.pg-user-meta-name { font-size: 22px; font-weight: 700; }
+.pg-user-meta-sub  { font-size: 13px; color: var(--foregroundAlt); }
+
+
+/* ════════════════════════════════════════════════════════════════
+   Карточка фильтра-статуса (Завершено / В процессе / Не начато)
+   на UserProgressPage. UserPage / UserEditor пользуются другим
+   набором классов (.user-status-card и .ap-progress-card соответственно)
+   из старого CSS — их менять не стал, чтобы не ломать остальной UI, 
+   но может всё равно где-то чёто сломется.
+   ════════════════════════════════════════════════════════════════ */
+
+.pg-tile {
+  text-align: center;
+  padding: 10px;
+  background: var(--backgroundBase);
+  border-radius: var(--radius-10);
+  border: 1px solid var(--borderPrimary);
+  transition: border-color 0.2s;
+  user-select: none;
+}
+.pg-tile.is-clickable { cursor: pointer; }
+.pg-tile.is-active {
+  border: 2px solid var(--pg-tile-color, var(--foregroundAccent));
+}
+.pg-tile-count {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--pg-tile-color, var(--foregroundDefault));
+}
+.pg-tile-label {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pg-tile-chevron {
+  font-size: 10px;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.pg-tile-chevron.is-flipped { transform: rotate(180deg); }

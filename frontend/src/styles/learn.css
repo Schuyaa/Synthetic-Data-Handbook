@@ -1,0 +1,1111 @@
+/* =========================================================
+   CHAPTER PAGE (one page, sidebar + scrollspy)
+   ========================================================= */
+
+.chapter-layout {
+  min-height: calc(100vh - var(--header-h));
+  position: relative;
+}
+
+/* Content shifts right when sidebar is open */
+.chapter-content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+  overflow: visible;
+  background: var(--backgroundBase);
+}
+.chapter-layout.sidebar-open .chapter-content {
+  margin-left: 320px;
+}
+
+/* Sidebar — always fixed */
+.chapter-sidebar {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  width: 320px;
+  height: calc(100vh - var(--header-h));
+  border-right: 1px solid var(--borderPrimary);
+  background: var(--backgroundBase);
+  overflow: auto;
+  z-index: 120;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.chapter-layout.sidebar-open .chapter-sidebar {
+  transform: translateX(0);
+}
+
+/* Toggle button — always visible */
+.sidebar-toggle {
+  display: flex;
+  position: fixed;
+  top: calc(var(--header-h) + 11vh);
+  left: 0;
+  z-index: 130;
+  width: 16px;
+  height: 56px;
+  border: none;
+  border-radius: 0 var(--radius-8) var(--radius-8) 0;
+  background: var(--foregroundAccent);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 2px 0 8px rgba(42, 125, 110, 0.25);
+  transition: left 0.3s ease, background 0.15s;
+}
+.chapter-layout.sidebar-open .sidebar-toggle {
+  left: 320px;
+}
+.sidebar-toggle:hover {
+  background: var(--foregroundAccentHover);
+}
+.sidebar-toggle-arrow {
+  line-height: 1;
+}
+
+/* Chapter navigation arrows (prev/next) */
+.chapter-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  text-decoration: none;
+  color: var(--foregroundAlt);
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-8);
+  padding: 14px 10px;
+  max-width: 52px;
+  overflow: hidden;
+  transition: max-width 0.3s ease, padding 0.3s ease, left 0.3s ease, color 0.2s, background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.chapter-arrow:hover {
+  max-width: 280px;
+  padding: 14px 16px;
+  color: var(--foregroundDefault);
+  background: var(--backgroundAlt);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+.chapter-arrow--prev {
+  left: 18px;
+  flex-direction: row;
+}
+.chapter-layout.sidebar-open .chapter-arrow--prev {
+  left: 338px;
+}
+.chapter-arrow--next {
+  right: 18px;
+  flex-direction: row;
+}
+.chapter-arrow-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.chapter-arrow-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 500;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.25s ease, margin 0.3s ease;
+  margin: 0;
+}
+.chapter-arrow:hover .chapter-arrow-label {
+  max-width: 200px;
+  opacity: 1;
+}
+.chapter-arrow--prev:hover .chapter-arrow-label {
+  margin-left: 8px;
+}
+.chapter-arrow--next:hover .chapter-arrow-label {
+  margin-right: 8px;
+}
+
+/* Overlay — mobile only */
+.sidebar-overlay {
+  display: none;
+}
+
+.chapter-sidebar-head {
+  padding: 14px;
+  border-bottom: 1px solid var(--borderPrimary);
+}
+
+.chapter-sidebar-title {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.chapter-search {
+  width: 100%;
+  border: 1px solid var(--borderPrimary);
+  padding: 7px 10px;
+  border-radius: var(--radius-10);
+  font-size: 13px;
+  background: var(--backgroundBase);
+}
+
+.chapter-search:focus {
+  outline: none;
+  border-color: var(--foregroundAccent);
+}
+
+/* Sidebar progress bar */
+.sidebar-progress {
+  margin-top: 12px;
+  padding: 10px 0 2px;
+}
+
+.sidebar-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.sidebar-progress-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--foregroundAlt);
+}
+
+.sidebar-progress-pct {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--brand-50);
+}
+
+.sidebar-progress-track {
+  height: 6px;
+  background: var(--grey-11);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sidebar-progress-fill {
+  height: 100%;
+  background: var(--brand-50);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  min-width: 0;
+}
+
+.sidebar-progress-detail {
+  font-size: 11px;
+  color: var(--foregroundAlt);
+  margin-top: 4px;
+  display: block;
+}
+
+.chapter-nav {
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.chapter-nav-item {
+  border: 1px solid var(--borderPrimary);
+  background: var(--backgroundBase);
+  border-radius: var(--radius-8);
+  padding: 10px 12px;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.chapter-nav-item:hover {
+  background: var(--backgroundAlt);
+  border-color: var(--grey-16);
+}
+
+/* Active lesson in sidebar */
+.chapter-nav-item.active {
+  border-color: var(--foregroundAccent);
+  background: var(--brand-subtle);
+  box-shadow: inset 3px 0 0 var(--foregroundAccent);
+}
+
+.chapter-nav-title {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.chapter-nav-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--foregroundAlt);
+}
+
+/* ── Лабораторные в сайдбаре главы ── */
+.chapter-nav-labs {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--borderPrimary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chapter-nav-section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--foregroundAlt);
+  font-weight: 700;
+  padding: 0 4px 4px;
+}
+/* lab-item: тот же chapter-nav-item, но с emerald-акцентом */
+.chapter-nav-item.is-lab {
+  border-color: rgba(16, 185, 129, 0.3);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.chapter-nav-item.is-lab:hover {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.06);
+}
+.chapter-nav-item.is-lab.is-done {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.chapter-content-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+
+.lesson-section {
+  border: 1px solid var(--borderPrimary);
+  background: var(--backgroundBase);
+  border-radius: var(--radius-12);
+  padding: 28px 30px;
+  margin-bottom: 22px;
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+
+.lesson-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.lesson-h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.lesson-min {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+}
+
+.lesson-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--grey-120);
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* ===== MARKDOWN CONTENT ===== */
+
+.lesson-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 28px 0 10px;
+}
+
+.lesson-body h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+
+.lesson-body p {
+  margin: 0 0 10px;
+}
+
+.lesson-body ul,
+.lesson-body ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+
+.lesson-body li {
+  margin-bottom: 4px;
+}
+
+.lesson-body blockquote {
+  margin: 16px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent-warm);
+  background: var(--accent-warm-subtle);
+  border-radius: 0 var(--radius-6) var(--radius-6) 0;
+  color: var(--foregroundDefault);
+  font-size: 14px;
+}
+
+.lesson-body blockquote p {
+  margin: 0;
+}
+
+.lesson-body code {
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 16px;
+  background: var(--backgroundAlt);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--foregroundAccent);
+}
+
+.lesson-body pre {
+  margin: 16px 0;
+  padding: 16px 18px;
+  border-radius: var(--radius-8);
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  background: #f6f8fa;
+  color: #24292f;
+  border: 1px solid var(--borderPrimary);
+}
+
+.lesson-body pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  border-radius: 0;
+  /* font-size наследуется от pre (14px) — не переопределяем */
+}
+
+/* ── Code block wrapper с кнопкой копирования ── */
+.md-codeblock {
+  position: relative;
+  margin: 16px 0;
+}
+.md-codeblock pre {
+  /* Переопределяем margin у pre внутри wrapper'а, иначе двойной */
+  margin: 0;
+}
+
+.md-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D4D4D4;
+  background: #F3F3F3;
+  color: #616161;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.12s, background 0.12s, color 0.12s, border-color 0.12s;
+}
+.md-codeblock:hover .md-copy-btn,
+.md-copy-btn:focus-visible {
+  opacity: 1;
+}
+.md-copy-btn:hover {
+  background: #E5E5E5;
+  color: #3B3B3B;
+  border-color: #B0B0B0;
+}
+.md-copy-btn.is-copied {
+  opacity: 1;
+  background: #E6FFED;
+  border-color: #1a7f37;
+  color: #1a7f37;
+}
+
+/* Dark theme — контрастная кнопка на #1F1F1F editor-bg */
+[data-theme="dark"] .md-copy-btn {
+  border-color: #3A3A3A;
+  background: #2B2B2B;
+  color: #9D9D9D;
+}
+[data-theme="dark"] .md-copy-btn:hover {
+  background: #3A3A3A;
+  color: #CCCCCC;
+  border-color: #555555;
+}
+[data-theme="dark"] .md-copy-btn.is-copied {
+  background: rgba(73, 119, 46, 0.25);
+  border-color: #3fb950;
+  color: #B5CEA8;
+}
+
+/* На touch-устройствах hover нет — копи-кнопка всегда видима */
+@media (hover: none) {
+  .md-copy-btn { opacity: 1; }
+}
+
+.lesson-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.lesson-body th,
+.lesson-body td {
+  border: 1px solid var(--borderPrimary);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.lesson-body th {
+  background: var(--backgroundAlt);
+  font-weight: 600;
+}
+
+.lesson-body tr:hover {
+  background: var(--brand-subtle);
+}
+
+.lesson-body img {
+  border-radius: var(--radius-10);
+  margin: 8px 0;
+  /* Не вылазим за карточку на узких экранах */
+  max-width: 100%;
+  height: auto;
+}
+
+.lesson-body svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+}
+
+.lesson-body a {
+  color: var(--foregroundAccent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lesson-body a:hover {
+  color: var(--foregroundAccentHover);
+}
+
+.lesson-body hr {
+  border: none;
+  border-top: 1px solid var(--borderPrimary);
+  margin: 16px 0;
+}
+
+.lesson-body .katex { color: inherit; }
+
+.lesson-body .katex-display {
+  margin: 14px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0 6px;
+}
+
+[data-theme="dark"] .lesson-body .katex-error {
+  color: #ff7b72;
+}
+
+mark.search-hit {
+  background: #fef08a;          /* yellow-200 */
+  color: #422006;
+  padding: 0 1px;
+  border-radius: 2px;
+  animation: search-hit-fade 4s ease-out forwards;
+}
+
+@keyframes search-hit-fade {
+  0%, 75%  { background: #fef08a; color: #422006; }
+  100%     { background: transparent; color: inherit; }
+}
+
+[data-theme="dark"] mark.search-hit {
+  background: #b58900;          /* solarized-yellow */
+  color: #f7f4e8;
+  animation-name: search-hit-fade-dark;
+}
+
+@keyframes search-hit-fade-dark {
+  0%, 75%  { background: #b58900; color: #f7f4e8; }
+  100%     { background: transparent; color: inherit; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   LAB PAGE (практическое задание, /lab/:slug)
+   ════════════════════════════════════════════════════════════════ */
+
+.lab-breadcrumb {
+  font-size: 13px;
+  color: var(--foregroundAlt);
+  margin-bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.lab-breadcrumb a {
+  color: var(--foregroundAccent);
+  text-decoration: none;
+}
+.lab-breadcrumb a:hover { text-decoration: underline; }
+.lab-breadcrumb-sep { margin: 0 4px; opacity: 0.6; }
+
+.lab-header {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.lab-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.12); /* emerald subtle */
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.lab-kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #10B981;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.lab-title {
+  font-size: 28px;
+  margin: 0;
+  line-height: 1.2;
+}
+.lab-summary {
+  margin: 8px 0 0;
+  color: var(--foregroundAlt);
+  font-size: 15px;
+}
+
+.lab-colab-btn {
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.lab-content {
+  margin-bottom: 24px;
+}
+
+.lab-answer-section {
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-10);
+  padding: 18px;
+  background: var(--backgroundBase);
+  margin-bottom: 18px;
+}
+.lab-section-title {
+  font-size: 16px;
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+
+.lab-status {
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.lab-status--ok {
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.lab-status--bad {
+  background: rgba(248, 113, 113, 0.1);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+[data-theme="dark"] .lab-status--ok { color: #34d399; }
+[data-theme="dark"] .lab-status--bad { color: #f87171; }
+.lab-status--info {
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+[data-theme="dark"] .lab-status--info {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.lab-py-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+  align-items: start;
+}
+.lab-py-split-left,
+.lab-py-split-right {
+  min-width: 0;  /* чтобы overflow внутри не раздвигал колонку */
+}
+
+.lab-py-split-left {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.lab-py-split-left pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.lab-py-split-left img {
+  max-width: 100%;
+  height: auto;
+}
+.lab-py-split-right {
+  position: sticky;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (max-width: 1024px) {
+  .lab-py-split {
+    grid-template-columns: 1fr;
+  }
+  .lab-py-split-right {
+    position: static;
+  }
+}
+
+.lab-py-form {
+  display: flex;
+  flex-direction: column;
+}
+.lab-py-workspace {
+  display: flex;
+  flex-direction: column;
+  height: min(600px, calc(100vh - 240px));
+  min-height: 380px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--background);
+}
+@media (max-width: 1024px) {
+  .lab-py-workspace { height: 540px; }
+}
+
+/* Tabs */
+.lab-py-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--borderPrimary);
+  background: var(--backgroundAlt);
+  flex-shrink: 0;
+}
+.lab-py-tab {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  color: var(--foregroundAlt);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;  /* поверх нижнего бордера контейнера */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.lab-py-tab:hover:not(:disabled) {
+  color: var(--foreground);
+}
+.lab-py-tab.is-active {
+  color: var(--foreground);
+  border-bottom-color: var(--green-brand, #10B981);
+  background: var(--background);
+}
+.lab-py-tab-dot {
+  font-size: 10px;
+  line-height: 1;
+}
+.lab-py-tab-dot--ok  { color: #10B981; }
+.lab-py-tab-dot--err { color: #ef4444; }
+
+/* Tab content — растягивается, ребёнок (CodeMirror/console) получает 100% */
+.lab-py-tab-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.lab-py-tab-content > * {
+  flex: 1;
+  min-height: 0;
+}
+
+.lab-py-tab-content .cm-editor {
+  height: 100%;
+}
+
+.lab-py-workspace .cm-editor .cm-scroller,
+.ap-editor-body .cm-editor .cm-scroller {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(127, 127, 127, 0.55) transparent;
+}
+.lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar,
+.ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-thumb,
+.ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-thumb {
+  background: rgba(127, 127, 127, 0.55);
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-thumb:hover,
+.ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-thumb:hover {
+  background: rgba(127, 127, 127, 0.8);
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+.lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-track,
+.lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-corner,
+.ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-track,
+.ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* Dark theme — светлый thumb на тёмном фоне */
+[data-theme="dark"] .lab-py-workspace .cm-editor .cm-scroller,
+[data-theme="dark"] .ap-editor-body .cm-editor .cm-scroller {
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+[data-theme="dark"] .lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-thumb,
+[data-theme="dark"] .ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+[data-theme="dark"] .lab-py-workspace .cm-editor .cm-scroller::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .ap-editor-body .cm-editor .cm-scroller::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.55);
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+/* Кнопки */
+.lab-py-form-foot {
+  padding: 10px 14px;
+  border-top: 1px solid var(--borderPrimary);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--backgroundAlt);
+  flex-shrink: 0;
+}
+
+.lab-py-console {
+  background: #f6f8fa;
+  color: #24292f;
+  padding: 16px 18px;
+  font-family: var(--font-mono, "Geist Mono", "JetBrains Mono", monospace);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+.lab-py-console-empty {
+  color: #6e7681;
+  font-style: italic;
+}
+.lab-py-console-line {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+}
+.lab-py-console-line + .lab-py-console-line { margin-top: 6px; }
+.lab-py-console-line--prompt { color: #0969da; }
+.lab-py-console-line--err    { color: #cf222e; }
+.lab-py-console-line--ok {
+  color: #1a7f37;
+  font-weight: 600;
+  margin-top: 10px !important;
+  font-size: 14px;
+}
+.lab-py-console-line--dim    { color: #57606a; }
+.lab-py-console-time {
+  color: #8c959f;
+  font-size: 12px;
+}
+
+[data-theme="dark"] .lab-py-console {
+  background: #0d1117;
+  color: #c9d1d9;
+}
+[data-theme="dark"] .lab-py-console-empty { color: #6e7681; }
+[data-theme="dark"] .lab-py-console-line--prompt { color: #58a6ff; }
+[data-theme="dark"] .lab-py-console-line--err    { color: #ff7b72; }
+[data-theme="dark"] .lab-py-console-line--ok     { color: #56d364; }
+[data-theme="dark"] .lab-py-console-line--dim    { color: #8b949e; }
+[data-theme="dark"] .lab-py-console-time         { color: #6e7681; }
+
+.lab-py-verdict {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid;
+  flex-shrink: 0;
+}
+.lab-py-verdict--ok {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.lab-py-verdict--bad {
+  background: rgba(248, 113, 113, 0.10);
+  color: #b91c1c;
+  border-color: rgba(248, 113, 113, 0.30);
+}
+[data-theme="dark"] .lab-py-verdict--ok { color: #34d399; }
+[data-theme="dark"] .lab-py-verdict--bad { color: #f87171; }
+.lab-py-verdict-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.lab-py-verdict-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+.lab-py-verdict-detail {
+  font-size: 13px;
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
+
+.lab-text-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: var(--backgroundBase);
+  color: inherit;
+}
+.lab-text-input:focus {
+  outline: 2px solid var(--foregroundAccent);
+  outline-offset: -1px;
+  border-color: var(--foregroundAccent);
+}
+
+.lab-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lab-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.12s, border-color 0.12s;
+}
+.lab-option:hover {
+  background: var(--backgroundAlt);
+  border-color: var(--foregroundAccent);
+}
+.lab-option input { margin-top: 2px; flex-shrink: 0; }
+
+.lab-form-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.lab-attempts {
+  font-size: 13px;
+  color: var(--foregroundAlt);
+}
+
+.lab-result {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.lab-result.is-ok {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.lab-result.is-bad {
+  background: rgba(248, 113, 113, 0.12);
+  color: #b91c1c;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+[data-theme="dark"] .lab-result.is-ok { color: #34d399; }
+[data-theme="dark"] .lab-result.is-bad { color: #f87171; }
+
+.lab-history {
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-10);
+  padding: 12px 16px;
+  background: var(--backgroundBase);
+}
+.lab-history > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  user-select: none;
+}
+.lab-history ul {
+  list-style: none;
+  padding: 12px 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lab-history li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.lab-history-marker {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.lab-history li.is-ok .lab-history-marker {
+  background: rgba(16, 185, 129, 0.18);
+  color: #047857;
+}
+.lab-history li.is-bad .lab-history-marker {
+  background: rgba(248, 113, 113, 0.18);
+  color: #b91c1c;
+}
+[data-theme="dark"] .lab-history li.is-ok .lab-history-marker { color: #34d399; }
+[data-theme="dark"] .lab-history li.is-bad .lab-history-marker { color: #f87171; }
+.lab-history-time {
+  color: var(--foregroundAlt);
+  flex-shrink: 0;
+}
+.lab-history-answer {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  background: var(--backgroundAlt);
+  padding: 2px 6px;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+.lab-history-answer--code {
+  display: block;
+  width: 100%;
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 200px;
+  overflow: auto;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ===== PROGRESS INDICATORS ===== */
+
+.chapter-nav-item.is-done {
+  border-color: var(--green-brand);
+  background: var(--green-light);
+}
+
+.chapter-nav-item.is-progress {
+  border-color: var(--amber-brand);
+  background: var(--amber-light);
+}
+
+.lesson-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lesson-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.lesson-badge--done {
+  background: var(--green-brand);
+  color: #fff;
+}
+
+.lesson-badge--progress {
+  background: var(--amber-brand);
+  color: #fff;
+  font-size: 10px;
+}
+

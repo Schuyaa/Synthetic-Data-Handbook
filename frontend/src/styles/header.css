@@ -1,0 +1,405 @@
+/* ===== SITE HEADER (fixed, global) ===== */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  background: rgba(250, 250, 248, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borderPrimary);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+}
+
+.site-header .header-inner {
+  width: 96%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  position: relative;
+  font-weight: 650;
+  font-size: 15px;
+  line-height: 1;                /* фиксируем — иначе inline-бокс плавает от parent line-height */
+  letter-spacing: -0.1px;
+  color: var(--foregroundDefault);
+  white-space: nowrap;
+}
+
+
+.logo-link,
+.logo-link:hover {
+  position: relative;
+  display: inline-block;          /* без этого abspos-потомок имеет неопределённый bounding box у inline <a> */
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+/* был отвратительный баг со смещением волны при наведении на текст, проблема была решена родителем с абсолютным позиционированием, но кто знает что ещё может быть */
+.logo-text {
+  display: block;
+}
+
+.logo-text span {
+  color: var(--foregroundAccent);
+}
+
+.logo-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--foregroundAccent);
+  background: var(--backgroundBase);
+  pointer-events: none;
+  clip-path: polygon(
+    0 0,
+    -3% 0%,
+     1% 12.5%,
+    -3% 25%,
+    -7% 37.5%,
+    -3% 50%,
+     1% 62.5%,
+    -3% 75%,
+    -7% 87.5%,
+    -3% 100%,
+    0 100%
+  );
+  transition: clip-path 0.6s ease;
+}
+
+.logo-link:hover .logo-fill {
+  /* Wave sweeps to the right — fully revealed */
+  clip-path: polygon(
+    0 0,
+    104% 0%,
+    108% 12.5%,
+    104% 25%,
+    100% 37.5%,
+    104% 50%,
+    108% 62.5%,
+    104% 75%,
+    100% 87.5%,
+    104% 100%,
+    0 100%
+  );
+}
+
+.nav {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.nav a {
+  color: var(--foregroundAlt);
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.nav a:hover {
+  color: var(--foregroundDefault);
+  text-decoration: none;
+}
+
+.nav a.nav-active {
+  color: var(--foregroundDefault);
+  font-weight: 650;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.nav--desktop {
+  display: flex;
+}
+.header-auth--desktop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-menu-trigger {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Theme-toggle тоже не должен сжиматься */
+.theme-toggle {
+  flex-shrink: 0;
+}
+
+.header-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--borderPrimary);
+  background: var(--foregroundAccent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  padding: 0;
+}
+.header-avatar:hover,
+.header-avatar.is-open {
+  border-color: var(--foregroundAccent);
+  box-shadow: 0 0 0 2px rgba(42, 125, 110, 0.2);
+}
+
+/* Бургер :) button */
+.header-burger {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-6);
+  background: var(--backgroundBase);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  transition: background 0.15s;
+}
+.header-burger:hover {
+  background: var(--backgroundAlt);
+}
+.header-burger span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--foregroundDefault);
+  border-radius: 1px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.header-burger.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.header-burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.header-burger.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Dropdown menu */
+.header-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-8);
+  box-shadow: var(--shadow-popover);
+  padding: 6px;
+  z-index: 300;
+}
+
+.header-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  color: var(--foregroundDefault);
+  text-decoration: none;
+  border-radius: var(--radius-6);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.header-dropdown-item:hover {
+  background: var(--backgroundAlt);
+  text-decoration: none;
+}
+.header-dropdown-item--accent {
+  color: var(--foregroundAccent);
+  font-weight: 600;
+}
+
+.header-dropdown-divider {
+  height: 1px;
+  background: var(--borderPrimary);
+  margin: 4px 8px;
+}
+
+/* ── Responsive breakpoint ── */
+@media (max-width: 768px) {
+  .nav--desktop { display: none; }
+  .header-auth--desktop { display: none; }
+  .header-menu-trigger { display: block; }
+
+  .header-search {
+    flex: 1;
+    min-width: 0;
+  }
+  .header-search input {
+    width: 100%;
+  }
+
+  .site-header .header-inner {
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 13px;
+  }
+
+  .search-popover {
+    position: fixed;
+    top: calc(var(--header-h, 60px) + 6px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - var(--header-h, 60px) - 24px);
+  }
+}
+
+/* ===== HEADER SEARCH (optional, if you added) ===== */
+
+.header-search {
+  position: relative;
+}
+
+.header-search input {
+  width: 100%;
+  border: 1px solid var(--borderPrimary);
+  padding: 7px 10px;
+  border-radius: var(--radius-10);
+  font-size: 13px;
+  background: var(--backgroundBase);
+  color: var(--foregroundDefault);
+}
+
+.header-search input:focus {
+  outline: none;
+  border-color: var(--foregroundAccent);
+}
+
+.search-popover {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 360px;
+  max-height: 360px;
+  overflow: auto;
+  background: var(--backgroundBase);
+  border: 1px solid var(--borderPrimary);
+  border-radius: var(--radius-12);
+  box-shadow: var(--shadow-popover);
+  padding: 10px;
+  z-index: 500;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.search-empty {
+  color: var(--foregroundAlt);
+  font-size: 13px;
+  padding: 8px;
+}
+
+.search-item {
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  background: var(--backgroundBase);
+  padding: 8px 10px;
+  border-radius: var(--radius-10);
+  color: var(--foregroundDefault);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.search-item:hover {
+  border-color: var(--borderPrimary);
+  background: var(--backgroundAlt);
+}
+
+.search-hint {
+  font-size: 12px;
+  color: var(--foregroundAlt);
+  padding: 6px 8px 2px;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  padding: 32px 24px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  background: var(--grey-120);
+  color: var(--grey-30);
+  border-top: 2px solid var(--brand-50);
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.footer-logo {
+  font-weight: 700;
+  color: var(--grey-11);
+}
+
+.footer-copy {
+  color: var(--grey-30);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-nav a {
+  color: var(--grey-30);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-nav a:hover {
+  color: var(--brand-50);
+}
+
+.footer-meta {
+  color: var(--grey-30);
+}
+
