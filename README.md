@@ -1,5 +1,5 @@
 # Synthetic Data Handbook
-
+!!!!! ПРОТОТИП !!!!!
 Учебная web-платформа (электронный учебник) с системой авторизации, ролями,
 отслеживанием прогресса по урокам/практикам, интерактивными квизами и
 лабораторными заданиями с проверкой ответа (включая привязку к Google Colab
@@ -36,10 +36,10 @@ notebook'ам).
 ```bash
 git clone <this-repo> && cd ebook_beta
 cp .env.example .env
-# отредактируй .env — обязательно SECRET_KEY и POSTGRES_PASSWORD
+# отредактировать .env — обязательно SECRET_KEY и POSTGRES_PASSWORD
 docker compose up -d --build
 
-# первый раз — создай admin'а:
+# первый раз — создать admin'а:
 docker compose exec backend python -m scripts.bootstrap_admin
 ```
 
@@ -58,7 +58,7 @@ venv\Scripts\activate            # Windows
 pip install -r requirements.txt
 
 cp .env.example .env
-# заполни DATABASE_URL и SECRET_KEY (см. .env.example для генерации)
+# нужно заполнить DATABASE_URL и SECRET_KEY (см. .env.example для генерации)
 
 alembic upgrade head             # накатить схему
 python -m scripts.bootstrap_admin  # один раз — создать admin'а
@@ -83,7 +83,6 @@ backend/           — FastAPI приложение (app/), миграции (al
 frontend/          — React приложение, Caddyfile, Dockerfile
 docker-compose.yml — единый stack для деплоя
 .env.example       — образец секретов/конфига для compose
-DEPLOY.md          — пошаговая инструкция по деплою на VPS / для локального демо
 ```
 
 ## Лицензия
