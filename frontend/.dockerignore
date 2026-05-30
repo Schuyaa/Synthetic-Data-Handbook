@@ -1,20 +1,14 @@
-# Не тащим в build-context:
 node_modules/
 dist/
 .vite/
 
-# Локальная конфигурация
 .env
 .env.local
 .env.*.local
-# .env.example, .env.development, .env.production.example — оставляем
 
-# IDE / логи
 .idea/
 .vscode/
 *.log
 npm-debug.log*
 
-# Документация
-ROADMAP.md
 README.md

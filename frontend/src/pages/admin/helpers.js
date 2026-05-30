@@ -32,9 +32,8 @@ export function buildTree(items) {
 
 // filterByStatus / collectChapters раньше жили тут — удалены вместе с
 // рефакторингом прогресса под единое дерево (lessons + labs + questions).
-// Если что-то нужно — смотри src/utils/progress.js (buildProgressTree).
+// Если что-то нужно — src/utils/progress.js (buildProgressTree).
 
-/** Цвет роли пользователя для UI */
 export function roleColor(role) {
   if (role === "admin") return "#DC2626";
   if (role === "teacher") return "#D97706";
