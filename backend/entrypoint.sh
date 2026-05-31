@@ -1,3 +1,4 @@
+#!/bin/sh
 set -e
 
 echo "→ [entrypoint] alembic upgrade head ..."
