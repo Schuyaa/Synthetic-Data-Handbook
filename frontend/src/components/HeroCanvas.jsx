@@ -41,9 +41,12 @@ export default function HeroCanvas() {
   const settleTimer = useRef(0);
   const visible = useRef(true);
 
+  // Отключаем анимацию на мобильных устройствах (ширина менее 768px)
+  const shouldRender = typeof window !== "undefined" && window.innerWidth >= 768;
+
   useEffect(() => {
     const canvas = cvs.current;
-    if (!canvas) return;
+    if (!canvas || !shouldRender) return;
     const ctx = canvas.getContext("2d");
 
     // Лениво инициализируем первый порог spawnAt (нельзя Math.random() в
@@ -363,12 +366,18 @@ export default function HeroCanvas() {
       cancelAnimationFrame(af.current);
       io.disconnect();
     };
-  }, []);
+  }, [shouldRender]);
 
   return (
-    <canvas
-      ref={cvs}
-      style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-    />
+    <>
+      {shouldRender ? (
+        <canvas
+          ref={cvs}
+          style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+        />
+      ) : (
+        <div style={{ position: "absolute", inset: 0 }} />
+      )}
+    </>
   );
 }
