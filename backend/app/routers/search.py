@@ -20,14 +20,12 @@ HEADLINE_OPTS = (
 )
 
 def _target(topic: Topic):
-    # root section = theme, child section = chapter, lesson = lesson, lab = lab
+    # root section = theme, child section = chapter, lesson = lesson
     # subtopic = visual grouping only, excluded from search results
     if topic.kind == "subtopic":
         return None
     if topic.kind == "lesson":
         return "lesson"
-    if topic.kind == "lab":
-        return "lab"
     if topic.parent_id is None:
         return "theme"
     return "chapter"
@@ -104,10 +102,7 @@ def search(
         elif target == "chapter":
             chapter_slug = topic.slug
             theme_slug = parent_slug  
-        elif target == "lesson":
-            chapter_slug = parent_slug
-            theme_slug = grand_slug
-        elif target == "lab":
+        else:  
             chapter_slug = parent_slug
             theme_slug = grand_slug
 
