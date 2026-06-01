@@ -20,12 +20,14 @@ HEADLINE_OPTS = (
 )
 
 def _target(topic: Topic):
-    # root section = theme, child section = chapter, lesson = lesson
+    # root section = theme, child section = chapter, lesson = lesson, lab = lab
     # subtopic = visual grouping only, excluded from search results
     if topic.kind == "subtopic":
         return None
     if topic.kind == "lesson":
         return "lesson"
+    if topic.kind == "lab":
+        return "lab"
     if topic.parent_id is None:
         return "theme"
     return "chapter"

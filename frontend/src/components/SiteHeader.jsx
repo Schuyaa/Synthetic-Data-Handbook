@@ -98,6 +98,13 @@ export default function SiteHeader({ user, onLoginClick, onLogout }) {
     if (r.target === "lesson" && r.chapter_slug) {
       const qs = `?lesson=${encodeURIComponent(r.slug)}${matchParam ? "&" + matchParam : ""}`;
       navigate(`/chapter/${r.chapter_slug}${qs}`);
+      return;
+    }
+
+    if (r.target === "lab") {
+      const qs = matchParam ? `?${matchParam}` : "";
+      navigate(`/lab/${r.slug}${qs}`);
+      return;
     }
   };
 
@@ -193,7 +200,7 @@ export default function SiteHeader({ user, onLoginClick, onLogout }) {
                     >
                       <div style={{ fontWeight: 700, fontSize: 13 }}>{r.title}</div>
                       <div style={{ fontSize: 12, color: "var(--foregroundAlt)", marginTop: 2 }}>
-                        {r.target === "theme" ? "Тема" : r.target === "chapter" ? "Глава" : "Урок"}
+                        {r.target === "theme" ? "Тема" : r.target === "chapter" ? "Глава" : r.target === "lab" ? "Лаб" : "Урок"}
                       </div>
                       {r.snippet ? (
                         <div
