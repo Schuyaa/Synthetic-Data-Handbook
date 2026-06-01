@@ -3,7 +3,7 @@
 Учебная web-платформа (электронный учебник) с системой авторизации, ролями,
 отслеживанием прогресса по урокам/практикам, интерактивными квизами и
 лабораторными заданиями с проверкой ответа (включая привязку к Google Colab
-notebook'ам).
+ноутбукам).
 
 Разрабатывается в рамках выпускной работы по теме генерации синтетических
 данных (ПГНИУ).
@@ -21,7 +21,7 @@ notebook'ам).
   привязки квиз-вопросов к главам.
 - Markdown-контент с поддержкой LaTeX (`$E=mc^2$`, `$$\int x\,dx$$`),
   syntax highlighting блоков кода, copy-кнопкой.
-- Прогресс пользователя по урокам, лабам и вопросам — единое представление.
+- Прогресс пользователя по урокам, лабам и вопросам - единое представление.
 - Практические задания с привязкой к Google Colab и автопроверкой ответа в
   4 режимах: точный текст, число с допуском, single/multiple choice.
 - Роли: `student` / `teacher` / `admin`, RBAC через FastAPI dependencies.
@@ -36,14 +36,14 @@ notebook'ам).
 ```bash
 git clone <this-repo> && cd ebook_beta
 cp .env.example .env
-# отредактировать .env — обязательно SECRET_KEY и POSTGRES_PASSWORD
+# отредактировать .env - обязательно SECRET_KEY и POSTGRES_PASSWORD
 docker compose up -d --build
 
-# первый раз — создать admin'а:
+# первый раз - создать админа:
 docker compose exec backend python -m scripts.bootstrap_admin
 ```
 
-`http://localhost` — админка по `/admin` после логина.
+`http://localhost` - админка по `/admin` после логина.
 
 ## Локальный dev (без Docker)
 
@@ -61,7 +61,7 @@ cp .env.example .env
 # нужно заполнить DATABASE_URL и SECRET_KEY (см. .env.example для генерации)
 
 alembic upgrade head             # накатить схему
-python -m scripts.bootstrap_admin  # один раз — создать admin'а
+python -m scripts.bootstrap_admin  # один раз - создать admin'а
 
 uvicorn app.main:app --reload --port 8000
 ```
@@ -79,10 +79,10 @@ npm run dev                      # http://localhost:5173
 ## Структура репозитория
 
 ```
-backend/           — FastAPI приложение (app/), миграции (alembic/), скрипты, Dockerfile
-frontend/          — React приложение, Caddyfile, Dockerfile
-docker-compose.yml — единый stack для деплоя
-.env.example       — образец секретов/конфига для compose
+backend/           - FastAPI приложение (app/), миграции (alembic/), скрипты, Dockerfile
+frontend/          - React приложение, Caddyfile, Dockerfile
+docker-compose.yml - единый stack для деплоя
+.env.example       - образец секретов/конфига для compose
 ```
 
 ## Лицензия
