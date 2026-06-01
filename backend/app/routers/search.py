@@ -104,7 +104,10 @@ def search(
         elif target == "chapter":
             chapter_slug = topic.slug
             theme_slug = parent_slug  
-        else:  
+        elif target == "lesson":
+            chapter_slug = parent_slug
+            theme_slug = grand_slug
+        elif target == "lab":
             chapter_slug = parent_slug
             theme_slug = grand_slug
 
