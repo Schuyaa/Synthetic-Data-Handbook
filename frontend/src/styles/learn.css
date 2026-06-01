@@ -477,23 +477,8 @@
   border-collapse: collapse;
   margin: 12px 0;
   font-size: 13px;
-}
-
-/* На мобильных экранах таблица с горизонтальным скроллом */
-@media (max-width: 640px) {
-  .lesson-body > table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border: 1px solid var(--borderPrimary);
-    border-radius: var(--radius-8);
-  }
-  .lesson-body > table > thead,
-  .lesson-body > table > tbody,
-  .lesson-body > table > tr {
-    display: table;
-    width: 100%;
-  }
+  overflow-x: auto;
+  display: block;
 }
 
 .lesson-body th,
@@ -501,7 +486,6 @@
   border: 1px solid var(--borderPrimary);
   padding: 8px 10px;
   text-align: left;
-  white-space: nowrap;
 }
 
 .lesson-body th {
