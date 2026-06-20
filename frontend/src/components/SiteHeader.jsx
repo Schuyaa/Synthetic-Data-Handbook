@@ -176,7 +176,6 @@ export default function SiteHeader({ user, onLoginClick, onLogout }) {
               {!q.trim() ? (
                 <div className="search-empty">
                   Поиск по темам, главам и урокам.
-                  <div className="search-hint">Например: "приватность", "GAN", "дифференциальная".</div>
                 </div>
               ) : loading ? (
                 <div className="search-empty">Ищем…</div>
@@ -184,7 +183,6 @@ export default function SiteHeader({ user, onLoginClick, onLogout }) {
                 <div className="search-empty">Ничего не найдено.</div>
               ) : (
                 <>
-                  <div className="search-hint">Кликни по результату, чтобы перейти.</div>
                   {results.map((r) => (
                     <button
                       key={`${r.target}-${r.id}`}
