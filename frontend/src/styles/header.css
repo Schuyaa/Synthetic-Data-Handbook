@@ -308,9 +308,11 @@
   position: absolute;
   top: 42px;
   left: 0;
-  width: 360px;
+  width: 100%;
+  max-width: 320px;
   max-height: 360px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: var(--backgroundBase);
   border: 1px solid var(--borderPrimary);
   border-radius: var(--radius-12);
@@ -327,6 +329,7 @@
 }
 
 .search-item {
+  display: block;
   width: 100%;
   text-align: left;
   border: 1px solid transparent;
@@ -334,12 +337,9 @@
   padding: 8px 10px;
   border-radius: var(--radius-10);
   color: var(--foregroundDefault);
-  min-width: 0;
   box-sizing: border-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: pre-wrap;
   word-break: break-word;
+  white-space: normal;
 }
 
 .search-item:hover {
