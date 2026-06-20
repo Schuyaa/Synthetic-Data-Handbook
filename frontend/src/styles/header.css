@@ -277,6 +277,9 @@
     width: auto;
     max-width: none;
     max-height: calc(100vh - var(--header-h, 60px) - 24px);
+    box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -314,8 +317,7 @@
   box-shadow: var(--shadow-popover);
   padding: 10px;
   z-index: 500;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  box-sizing: border-box;
 }
 
 .search-empty {
@@ -333,7 +335,10 @@
   border-radius: var(--radius-10);
   color: var(--foregroundDefault);
   min-width: 0;
-  overflow-wrap: anywhere;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
   word-break: break-word;
 }
 
